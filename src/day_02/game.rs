@@ -12,6 +12,7 @@ impl Game {
             me
         }
     }
+
     pub fn score(&self) -> u32 {
         let game_score = match (&self.opponent, &self.me) {
             (Shape::Rock, Shape::Paper) => 6,
@@ -23,6 +24,15 @@ impl Game {
             _ => 3,
         };
         game_score + self.me.score()
+    }
+
+    pub fn score_as_outcome(&self) -> u32 {
+        let game_score = match self.me {
+            Shape::Rock => 0,
+            Shape::Paper => 3,
+            Shape::Scissors => 6,
+        };
+        game_score + self.me.score_as_outcome(&self.opponent)
     }
 }
 
@@ -42,6 +52,12 @@ mod tests {
         assert_eq!(Game::new(Shape::Rock, Shape::Rock).score(), 4);
         assert_eq!(Game::new(Shape::Paper, Shape::Rock).score(), 1);
         assert_eq!(Game::new(Shape::Scissors, Shape::Rock).score(), 7);
+    }
+    #[test]
+    fn test_score_as_outcome() {
+        assert_eq!(Game::new(Shape::Rock, Shape::Rock).score_as_outcome(), 3);
+        assert_eq!(Game::new(Shape::Rock, Shape::Paper).score_as_outcome(), 4);
+        assert_eq!(Game::new(Shape::Rock, Shape::Scissors).score_as_outcome(), 8);
     }
 
     #[test]
