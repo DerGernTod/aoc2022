@@ -41,13 +41,13 @@ mod tests {
 
     #[test]
     fn test_part_1() {
-        let rucksacks = read_to_rucksacks("./input/day_03_test.txt");
+        let rucksacks = read_to_rucksacks("./input/day_03.test.txt");
         assert_eq!(calc_shared_sum(&rucksacks), 157);
     }
 
     #[test]
     fn test_part_2() {
-        let rucksacks = read_to_rucksacks("./input/day_03_test.txt");
+        let rucksacks = read_to_rucksacks("./input/day_03.test.txt");
         assert_eq!(calc_shared_group_val(&rucksacks), 70);
     }
 }
