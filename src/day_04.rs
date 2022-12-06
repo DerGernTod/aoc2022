@@ -29,7 +29,7 @@ fn count_full_includes(zones: &[ClearingZone]) -> usize {
         .filter(|chunk| chunk[0].includes_two_way(&chunk[1]))
         .count()
 }
-
+#[allow(dead_code)]
 pub fn day_04() {
     let zones = read_into_zones("./input/day_04.txt");
     println!("including groups: {}", count_full_includes(&zones));

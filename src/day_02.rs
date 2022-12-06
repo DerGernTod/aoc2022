@@ -5,6 +5,7 @@ use self::game::Game;
 mod shape;
 mod game;
 
+#[allow(dead_code)]
 pub fn day_02() {
     let games = read_to_games("./input/day_02.txt");
     println!("total score: {}", calc_score(&games));

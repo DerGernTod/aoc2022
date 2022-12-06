@@ -3,6 +3,7 @@ use std::{fs, collections::HashSet};
 use self::rucksack::{Rucksack, char_to_value};
 
 mod rucksack;
+#[allow(dead_code)]
 pub fn day_03() {
     let rucksacks = read_to_rucksacks("./input/day_03.txt");
     println!("shared values: {}", calc_shared_sum(&rucksacks));

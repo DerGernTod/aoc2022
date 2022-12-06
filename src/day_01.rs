@@ -8,20 +8,20 @@ fn read_to_bags(path: &str) -> Vec<Vec<u32>> {
         .collect()
 }
 
-fn get_largest_bag_count(bags: &Vec<Vec<u32>>) -> u32 {
+fn get_largest_bag_count(bags: &[Vec<u32>]) -> u32 {
     let mut counts: Vec<u32> = bags.iter().map(|bag| bag.iter().sum()).collect();
     counts.sort();
     *counts.last().unwrap()
 }
 
-fn get_top_three_count(bags: &Vec<Vec<u32>>) -> u32 {
+fn get_top_three_count(bags: &[Vec<u32>]) -> u32 {
     let mut counts: Vec<u32> = bags.iter().map(|bag| bag.iter().sum()).collect();
     counts.sort();
     counts.pop().unwrap() + counts.pop().unwrap() + counts.pop().unwrap()
 }
 
+#[allow(dead_code)]
 pub fn day_01() {
-    
     let bags = read_to_bags("./input/day_01.txt");
     println!("thickest bag: {}", get_largest_bag_count(&bags));
     println!("top 3 bags: {}", get_top_three_count(&bags));
