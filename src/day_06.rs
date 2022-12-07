@@ -1,5 +1,5 @@
 use std::{fs, collections::HashSet};
-
+#[allow(dead_code)]
 pub fn day_06() {
     println!("first proto at {}", parse_into_protocol_start("./input/day_06.txt", 4));
     println!("first message at {}", parse_into_protocol_start("./input/day_06.txt", 14));

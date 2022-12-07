@@ -1,36 +1,43 @@
-use std::{cell::RefCell, rc::{Rc, Weak}, borrow::BorrowMut};
+use std::{cell::{RefCell, RefMut}, rc::{Rc, Weak}, borrow::BorrowMut};
 
-struct FileTree {
+pub struct FileTree {
     parent: Option<Rc<RefCell<FileTree>>>,
     name: String,
-    size: usize,
-    is_dir: bool
+    pub size: usize,
+    pub is_dir: bool
 }
 
 impl FileTree {
     pub fn new(name: String, size: usize, parent: Option<Rc<RefCell<FileTree>>>) -> FileTree {
-        let new_parent = parent.map(|rc| {
-            rc.borrow_mut().add_size(size);
-            Rc::clone(&rc)
-        });
-        FileTree { parent: new_parent, name, size, is_dir: size == 0 }
+        if let Some(ref parent) = parent {
+            parent.as_ref().borrow_mut().add_size(size);
+        }
+        FileTree { parent, name, size, is_dir: size == 0 }
     }
-    pub fn add_size(&mut self, size: usize) {
+    fn add_size(&mut self, size: usize) {
         self.size += size;
-        self.parent = self.parent.map(|rc| {
-            let mut clone = Rc::clone(&rc.borrow());
-            clone.add_size(size);
-            RefCell::new(clone)
-        });
+        if let Some(ref parent) = self.parent {
+            parent.as_ref().borrow_mut().add_size(size);
+        }
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::FileTree;
+    use std::{rc::Rc, cell::RefCell};
 
+    use super::FileTree;
+    #[test]
     fn test_child_adding() {
-        let mut root = FileTree::new(None, String::from("/"), 0);
-        let mut child_file = FileTree::new(Some(&root), String::from("a"), 5);
+        let root = FileTree::new(String::from("/"), 0, None);
+        let root_rc = Rc::new(RefCell::new(root));
+        FileTree::new(String::from("a"), 5, Some(Rc::clone(&root_rc)));
+        FileTree::new(String::from("b"), 4, Some(Rc::clone(&root_rc)));
+        let child_dir = FileTree::new(String::from("dir"), 0, Some(Rc::clone(&root_rc)));
+        assert_eq!(root_rc.borrow().size, 9);
+        let sub_rc = Rc::new(RefCell::new(child_dir));
+        FileTree::new(String::from("child"), 3, Some(Rc::clone(&sub_rc)));
+        assert_eq!(root_rc.borrow().size, 12);
+        assert_eq!(sub_rc.borrow().size, 3);
     }
 }
