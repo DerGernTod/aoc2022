@@ -61,10 +61,10 @@ fn calc_tree_scenic_score(map: &ForestMap, coords: &Coords) -> u32 {
             break;
         }
     }
-    visible_trees_bottom.max(1)
-    * visible_trees_top.max(1)
-    * visible_trees_left.max(1)
-    * visible_trees_right.max(1)
+    visible_trees_bottom
+    * visible_trees_top
+    * visible_trees_left
+    * visible_trees_right
 }
 
 fn is_tree_hidden(map: &ForestMap, coords: &Coords) -> bool {
