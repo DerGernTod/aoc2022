@@ -1,8 +1,8 @@
 use std::{fs, collections::HashMap, rc::Rc, cell::RefCell};
-
 use self::file_tree::FileTree;
 
 mod file_tree;
+#[allow(dead_code)]
 pub fn day_07() {
     let tree = read_into_file_tree("./input/day_07.txt");
     let sum = calc_dirs_lt_100k(&tree);

@@ -1,5 +1,6 @@
 use std::{fs, collections::HashMap};
 
+#[allow(dead_code)]
 pub fn day_08() {
     let map = read_into_map("./input/day_08.txt");
     println!("Visible trees: {}", num_visible_trees(&map));

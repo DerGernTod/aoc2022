@@ -32,6 +32,8 @@ impl Display for Coords {
         f.write_fmt(format_args!("Coords({},{})", self.0, self.1))
     }
 }
+
+#[allow(dead_code)]
 pub fn day_09() {
     let head_coords = read_into_head_coords("./input/day_09.txt");
     let tail_coords = calc_tail_coords(&head_coords);
@@ -39,6 +41,7 @@ pub fn day_09() {
     println!("Num tail positions: {}\n num multi positions: {}", tail_coords.len(), multi_tail_coords.len());
 }
 
+#[allow(dead_code)]
 fn print_map(min: &Coords, max: &Coords, head: &Coords, knots: &[Coords]) {
     println!();
     for y in min.1..=max.1 {
