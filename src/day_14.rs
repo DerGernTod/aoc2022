@@ -3,7 +3,7 @@ mod coords;
 use std::{collections::HashSet, fs};
 
 use self::coords::Coords;
-
+#[allow(dead_code)]
 pub fn day_14() {
     let cave = parse_into_coords("./input/day_14.txt");
     println!("resting sand: {}", count_resting_sand(cave));
