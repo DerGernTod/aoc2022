@@ -18,11 +18,6 @@ impl Sensor {
         let h_range = (self.range - dist).max(0);
         (self.location.0 - h_range, self.location.0 + h_range)
     }
-    pub fn calc_covered_col_start_end(&self, col: i32) -> (i32, i32) {
-        let dist = self.location.0.abs_diff(col) as i32;
-        let v_range = (self.range - dist).max(0);
-        (self.location.1 - v_range, self.location.1 + v_range)
-    }
 }
 
 impl FromStr for Sensor {
